@@ -1,22 +1,18 @@
 const readFile = require('./cat');
+const curl = require("./curl")
+const pwd = require('./pwd');
+const ls = require('./ls');
 
+// http://www.google.com
+process.stdout.write("prompt > ");
 
-
-
-// const pwd = require('./pwd');
-// pwd();
-// const ls = require('./ls');
-// ls();
-// process.stdout.write("prompt >");
-
-// let file;
-
-// const data = process.stdin.on("data", (data)=>{
-//   const cmd = data.toString().trim();
-//   // if(cmd==="pwd"){
-//   //   process.stdout.write(process.cwd());
-//   // }
-//   process.stdout.write(`\nprompt`);
-// });
-
-readFile('bash.js');
+process.stdin.on("data", (data)=>{
+  let cmd = data.toString().trim();
+  if(cmd==="ls"){
+    ls();
+  }if(cmd==="pwd"){
+    pwd()
+  }else{
+    curl(cmd.toString().trim());
+  }
+})
